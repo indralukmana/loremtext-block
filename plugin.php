@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: loremtext-block — CGB Gutenberg Block Plugin
- * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: loremtext-block — is a Gutenberg plugin created via create-guten-block.
- * Author: mrahmadawais, maedahbatool
- * Author URI: https://AhmadAwais.com/
+ * Plugin Name: Loremtext Block
+ * Plugin URI: https://github.com/indralukmana/loremtext-block
+ * Description: A plugin adding a Gutenberg block generating 'lorem ipsum' texts
+ * Author: indralukmana
+ * Author URI: https://www.indralukmana.com
  * Version: 1.0.0
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  *
- * @package CGB
+ * @package loremtext-block
  */
 
 // Exit if accessed directly.
