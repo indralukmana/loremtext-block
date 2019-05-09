@@ -27,13 +27,13 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
  */
 registerBlockType( 'cgb/block-loremtext-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'loremtext-block - CGB Block' ), // Block title.
+	title: __( 'Lorem Text' ), // Block title.
 	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__( 'loremtext-block — CGB Block' ),
-		__( 'CGB Example' ),
-		__( 'create-guten-block' ),
+		__( 'Lorem Ipsum Text' ),
+		__( 'Dummy Text' ),
+		__( 'Example' ),
 	],
 
 	/**
@@ -44,7 +44,7 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	edit: function( props ) {
+	edit: ( props ) => {
 		// Creates a <p class='wp-block-cgb-block-loremtext-block'></p>.
 		return (
 			<div className={ props.className }>
