@@ -10,7 +10,8 @@ import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
-const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { registerBlockType, createBlock } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { RichText } = wp.editor;
 
 /**
  * Register: aa Gutenberg Block.
@@ -28,13 +29,27 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 registerBlockType( 'cgb/block-loremtext-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Lorem Text' ), // Block title.
-	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	icon: 'text', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
 		__( 'Lorem Ipsum Text' ),
 		__( 'Dummy Text' ),
 		__( 'Example' ),
 	],
+
+	/**
+	 * Attribute data for the block. The dummy text will be stored in the loremText attribute
+	 */
+	attributes: {
+		loremText: {
+			type: 'array',
+			source: 'children',
+			selector: '.loremtext-body',
+			textAlignment: {
+				type: 'string'
+			}
+		}
+	},
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -45,23 +60,33 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-loremtext-block'></p>.
-		return (
-			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>loremtext-block</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
+		const { attributes: {loremText}, className, setAttributes } = props;
+		const onChangeText = loremText => {
+			setAttributes( { loremText } )
+		};
+		return(
+			<div className={ className }>
+				<h2>{ __( 'Lorem Ipsum Text', 'loremtext-block')}</h2>
+				<RichText 
+					multiline='p'
+					placeholder={__( 'Dummy texts here', 'loremtext-block')}
+					onChange={ onChangeText }
+					value={ loremText }
+				/>
 			</div>
 		);
+	},
+
+	transforms: {
+		to: [
+			{
+				type: 'block',
+				blocks: [ 'core/paragraph' ],
+				transform: ( { loremText } ) => {
+					return createBlock( 'core/paragraph', '<p>OYE</p>')
+				}
+			}
+		],
 	},
 
 	/**
@@ -72,22 +97,16 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	save: function( props ) {
+	save: props => {
+		const { attributes: { loremText } } = props;
 		return (
-			<div>
-				<p>— Hello from the frontend.</p>
-				<p>
-					CGB BLOCK: <code>loremtext-block</code> is a new Gutenberg block.
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
-			</div>
+			<div className="loremtext-body">
+				{ loremText }
+			</div>		
 		);
+	},
+
+	supports: {
+		align: true
 	},
 } );
