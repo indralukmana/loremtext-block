@@ -9,9 +9,13 @@
 import './style.scss';
 import './editor.scss';
 
+// Import Icon
+import icon from './icon';
+
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType, createBlock } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { RichText, BlockControls, AlignmentToolbar } = wp.editor;
+const { Toolbar, Button, Tooltip} = wp.components;
 
 /**
  * Register: aa Gutenberg Block.
@@ -49,6 +53,14 @@ registerBlockType( 'cgb/block-loremtext-block', {
 		textAlignment: {
 			type: 'string'
 		},
+		highContrast: {
+			type: 'string',
+			default: ''
+		},
+		buttonActive: {
+			type: 'string',
+			default: ''
+		}
 	},
 
 	/**
@@ -63,7 +75,9 @@ registerBlockType( 'cgb/block-loremtext-block', {
 		const { 
 			attributes: {
 				loremText,
-				textAlignment
+				textAlignment,
+				highContrast,
+				buttonActive
 			},
 			className, 
 			setAttributes 
@@ -78,35 +92,37 @@ registerBlockType( 'cgb/block-loremtext-block', {
 		};
 
 		return(
-			<div className={ className }>
+			<div className={ `${className} ${highContrast}` }>
 				<h2>{ __( 'Lorem Ipsum Text', 'loremtext-block')}</h2>
 				<BlockControls>
 					<AlignmentToolbar 
 						value = {textAlignment}
 						onChange = {onChangeTextAlignment}
 					/>
+					<Toolbar>
+						<Tooltip  text={ __('High Contrast', 'loremtext-block')}>
+							<Button
+								className={     
+									`components-icon-button components-toolbar__control ${ buttonActive }`
+								}
+								onClick = { () => props.setAttributes( { 
+									highContrast: 'high-contrast' === highContrast ? '' : 'high-contrast'})}
+							>
+								{ icon }
+							</Button>
+						</Tooltip>
+					</Toolbar>
 				</BlockControls>
 				<RichText 
 					multiline='p'
 					placeholder={__( 'Dummy texts here', 'loremtext-block')}
-					onChange={ onChangeText }
+					onChange={ (loremText) => {props.setAttributes( {loremText} )} }
 					style={ { textAlign: textAlignment} }
+					className= { `loremtext-body sss ${highContrast}` }
 					value={ loremText }
 				/>
 			</div>
 		);
-	},
-
-	transforms: {
-		to: [
-			{
-				type: 'block',
-				blocks: [ 'core/paragraph' ],
-				transform: ( { loremText } ) => {
-					return createBlock( 'core/paragraph', '<p>OYE</p>')
-				}
-			}
-		],
 	},
 
 	/**
@@ -118,9 +134,12 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	save: props => {
-		const { attributes: { loremText } } = props;
+		const { highContrast, textAlignment, loremText } = props.attributes;
 		return (
-			<div className="loremtext-body">
+			<div 
+				className={`loremtext-body ${highContrast}`}
+				style={ {textAlign:textAlignment} }
+			>
 				{ loremText }
 		  	</div>
 		);
