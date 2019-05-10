@@ -11,7 +11,7 @@ import './editor.scss';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType, createBlock } = wp.blocks; // Import registerBlockType() from wp.blocks
-const { RichText } = wp.editor;
+const { RichText, BlockControls, AlignmentToolbar } = wp.editor;
 
 /**
  * Register: aa Gutenberg Block.
@@ -44,11 +44,11 @@ registerBlockType( 'cgb/block-loremtext-block', {
 		loremText: {
 			type: 'array',
 			source: 'children',
-			selector: '.loremtext-body',
-			textAlignment: {
-				type: 'string'
-			}
-		}
+			selector: '.loremtext-body'
+		},
+		textAlignment: {
+			type: 'string'
+		},
 	},
 
 	/**
@@ -60,17 +60,37 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	edit: ( props ) => {
-		const { attributes: {loremText}, className, setAttributes } = props;
+		const { 
+			attributes: {
+				loremText,
+				textAlignment
+			},
+			className, 
+			setAttributes 
+		} = props;
+		
 		const onChangeText = loremText => {
-			setAttributes( { loremText } )
+			props.setAttributes( { loremText } )
 		};
+
+		const onChangeTextAlignment = newTextAlignment => {
+			props.setAttributes( { textAlignment: newTextAlignment === undefined ? 'none' : newTextAlignment } );
+		};
+
 		return(
 			<div className={ className }>
 				<h2>{ __( 'Lorem Ipsum Text', 'loremtext-block')}</h2>
+				<BlockControls>
+					<AlignmentToolbar 
+						value = {textAlignment}
+						onChange = {onChangeTextAlignment}
+					/>
+				</BlockControls>
 				<RichText 
 					multiline='p'
 					placeholder={__( 'Dummy texts here', 'loremtext-block')}
 					onChange={ onChangeText }
+					style={ { textAlign: textAlignment} }
 					value={ loremText }
 				/>
 			</div>
@@ -102,9 +122,9 @@ registerBlockType( 'cgb/block-loremtext-block', {
 		return (
 			<div className="loremtext-body">
 				{ loremText }
-			</div>		
+		  	</div>
 		);
-	},
+	  },
 
 	supports: {
 		align: true
