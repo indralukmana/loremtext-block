@@ -5,11 +5,14 @@
  * which makes it higher in priority.
  */
 
-.wp-block-cgb-block-loremtext-block  {
+$black: #000;
+$dark: #f7b733;
+$light: rgba(254, 243, 224, 0.52);
 
-    &.high-contrast {
-      background: $black;
-      border-color: $black;
-      color: white;
-  }
+.wp-block-cgb-block-loremtext-block {
+	&.high-contrast {
+		background: $black;
+		border-color: $black;
+		color: white;
+	}
 }
