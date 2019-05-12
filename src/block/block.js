@@ -14,8 +14,20 @@ import icon from './icon';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType, createBlock } = wp.blocks; // Import registerBlockType() from wp.blocks
-const { RichText, BlockControls, AlignmentToolbar } = wp.editor;
-const { Toolbar, Button, Tooltip} = wp.components;
+const {
+	RichText,
+	BlockControls,
+	AlignmentToolbar,
+	InspectorControls
+} = wp.editor;
+const {
+	Toolbar,
+	Button,
+	Tooltip,
+	PanelBody,
+	PanelRow,
+	FormToggle
+} = wp.components;
 
 /**
  * Register: aa Gutenberg Block.
@@ -30,16 +42,12 @@ const { Toolbar, Button, Tooltip} = wp.components;
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType( 'cgb/block-loremtext-block', {
+registerBlockType('cgb/block-loremtext-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'Lorem Text' ), // Block title.
+	title: __('Lorem Text'), // Block title.
 	icon: 'text', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
-	keywords: [
-		__( 'Lorem Ipsum Text' ),
-		__( 'Dummy Text' ),
-		__( 'Example' ),
-	],
+	keywords: [__('Lorem Ipsum Text'), __('Dummy Text'), __('Example')],
 
 	/**
 	 * Attribute data for the block. The dummy text will be stored in the loremText attribute
@@ -71,58 +79,84 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	edit: ( props ) => {
-		const { 
+	edit: props => {
+		const {
 			attributes: {
 				loremText,
 				textAlignment,
 				highContrast,
 				buttonActive
 			},
-			className, 
-			setAttributes 
+			className,
+			setAttributes
 		} = props;
-		
+
 		const onChangeText = loremText => {
-			props.setAttributes( { loremText } )
+			props.setAttributes({ loremText });
 		};
 
 		const onChangeTextAlignment = newTextAlignment => {
-			props.setAttributes( { textAlignment: newTextAlignment === undefined ? 'none' : newTextAlignment } );
+			props.setAttributes({
+				textAlignment:
+					newTextAlignment === undefined ? 'none' : newTextAlignment
+			});
 		};
 
-		return(
-			<div className={ `${className} ${highContrast}` }>
-				<h2>{ __( 'Lorem Ipsum Text', 'loremtext-block')}</h2>
-				<BlockControls>
-					<AlignmentToolbar 
-						value = {textAlignment}
-						onChange = {onChangeTextAlignment}
-					/>
-					<Toolbar>
-						<Tooltip  text={ __('High Contrast', 'loremtext-block')}>
-							<Button
-								className={     
-									`components-icon-button components-toolbar__control ${ buttonActive }`
-								}
-								onClick = { () => props.setAttributes( { 
-									highContrast: 'high-contrast' === highContrast ? '' : 'high-contrast'})}
-							>
-								{ icon }
-							</Button>
-						</Tooltip>
-					</Toolbar>
-				</BlockControls>
-				<RichText 
+		const toggleHighContrast = () => {
+			props.setAttributes({
+				highContrast:
+					'high-contrast' === highContrast ? '' : 'high-contrast'
+			});
+		};
+
+		return [
+			<InspectorControls>
+				<PanelBody title={__('High Contrast', 'loremtext-block')}>
+					<PanelRow>
+						<label htmlFor='high-contrast-form-toggle'>
+							{__('High Contrast', 'loremtext-block')}
+						</label>
+						<FormToggle
+							id='high-contrast-form-toggle'
+							label={__('High Contrast', 'loremtext-block')}
+							checked={
+								highContrast === 'high-contrast' ? true : false
+							}
+							onChange={toggleHighContrast}
+						/>
+					</PanelRow>
+				</PanelBody>
+			</InspectorControls>,
+
+			<BlockControls>
+				<AlignmentToolbar
+					value={textAlignment}
+					onChange={onChangeTextAlignment}
+				/>
+				<Toolbar>
+					<Tooltip text={__('High Contrast', 'loremtext-block')}>
+						<Button
+							className={`components-icon-button components-toolbar__control ${buttonActive}`}
+							onClick={toggleHighContrast}>
+							{icon}
+						</Button>
+					</Tooltip>
+				</Toolbar>
+			</BlockControls>,
+
+			<div className={`${className} ${highContrast}`}>
+				<RichText
 					multiline='p'
-					placeholder={__( 'Dummy texts here', 'loremtext-block')}
-					onChange={ (loremText) => {props.setAttributes( {loremText} )} }
-					style={ { textAlign: textAlignment} }
-					className= { `loremtext-body sss ${highContrast}` }
-					value={ loremText }
+					placeholder={__('Dummy texts here', 'loremtext-block')}
+					onChange={loremText => {
+						props.setAttributes({ loremText });
+					}}
+					style={{ textAlign: textAlignment }}
+					className={`loremtext-body sss ${highContrast}`}
+					value={loremText}
 				/>
 			</div>
-		);
+		];
 	},
 
 	/**
@@ -136,16 +170,15 @@ registerBlockType( 'cgb/block-loremtext-block', {
 	save: props => {
 		const { highContrast, textAlignment, loremText } = props.attributes;
 		return (
-			<div 
+			<div
 				className={`loremtext-body ${highContrast}`}
-				style={ {textAlign:textAlignment} }
-			>
-				{ loremText }
-		  	</div>
+				style={{ textAlign: textAlignment }}>
+				{loremText}
+			</div>
 		);
-	  },
+	},
 
 	supports: {
 		align: true
-	},
-} );
+	}
+});
