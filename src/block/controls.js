@@ -11,10 +11,6 @@ const { Toolbar, Button, Tooltip } = wp.components;
  * Create a Block Controls wrapper Component
  */
 class Controls extends Component {
-	constructor() {
-		super(...arguments);
-	}
-
 	render() {
 		const {
 			attributes: { textAlignment, buttonActive, highContrast },
