@@ -9,25 +9,12 @@
 import './style.scss';
 import './editor.scss';
 
-// Import Icon
-import icon from './icon';
+import Controls from './controls';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType, createBlock } = wp.blocks; // Import registerBlockType() from wp.blocks
-const {
-	RichText,
-	BlockControls,
-	AlignmentToolbar,
-	InspectorControls
-} = wp.editor;
-const {
-	Toolbar,
-	Button,
-	Tooltip,
-	PanelBody,
-	PanelRow,
-	FormToggle
-} = wp.components;
+const { RichText, InspectorControls } = wp.editor;
+const { PanelBody, PanelRow, FormToggle } = wp.components;
 
 /**
  * Register: aa Gutenberg Block.
@@ -128,21 +115,7 @@ registerBlockType('cgb/block-loremtext-block', {
 				</PanelBody>
 			</InspectorControls>,
 
-			<BlockControls>
-				<AlignmentToolbar
-					value={textAlignment}
-					onChange={onChangeTextAlignment}
-				/>
-				<Toolbar>
-					<Tooltip text={__('High Contrast', 'loremtext-block')}>
-						<Button
-							className={`components-icon-button components-toolbar__control ${buttonActive}`}
-							onClick={toggleHighContrast}>
-							{icon}
-						</Button>
-					</Tooltip>
-				</Toolbar>
-			</BlockControls>,
+			<Controls {...{ setAttributes, ...props }} />,
 
 			<div className={`${className} ${highContrast}`}>
 				<RichText
