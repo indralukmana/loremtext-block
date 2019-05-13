@@ -10,11 +10,11 @@ import './style.scss';
 import './editor.scss';
 
 import Controls from './controls';
+import Inspector from './inspector';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
-const { registerBlockType, createBlock } = wp.blocks; // Import registerBlockType() from wp.blocks
-const { RichText, InspectorControls } = wp.editor;
-const { PanelBody, PanelRow, FormToggle } = wp.components;
+const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { RichText } = wp.editor;
 
 /**
  * Register: aa Gutenberg Block.
@@ -97,24 +97,7 @@ registerBlockType('cgb/block-loremtext-block', {
 		};
 
 		return [
-			<InspectorControls>
-				<PanelBody title={__('High Contrast', 'loremtext-block')}>
-					<PanelRow>
-						<label htmlFor='high-contrast-form-toggle'>
-							{__('High Contrast', 'loremtext-block')}
-						</label>
-						<FormToggle
-							id='high-contrast-form-toggle'
-							label={__('High Contrast', 'loremtext-block')}
-							checked={
-								highContrast === 'high-contrast' ? true : false
-							}
-							onChange={toggleHighContrast}
-						/>
-					</PanelRow>
-				</PanelBody>
-			</InspectorControls>,
-
+			<Inspector {...{ setAttributes, ...props }} />,
 			<Controls {...{ setAttributes, ...props }} />,
 
 			<div className={`${className} ${highContrast}`}>
