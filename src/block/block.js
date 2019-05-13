@@ -66,20 +66,6 @@ registerBlockType('cgb/block-loremtext-block', {
 			props.setAttributes({ loremText });
 		};
 
-		const onChangeTextAlignment = newTextAlignment => {
-			props.setAttributes({
-				textAlignment:
-					newTextAlignment === undefined ? 'none' : newTextAlignment
-			});
-		};
-
-		const toggleHighContrast = () => {
-			props.setAttributes({
-				highContrast:
-					'high-contrast' === highContrast ? '' : 'high-contrast'
-			});
-		};
-
 		return [
 			<Inspector {...{ setAttributes, ...props }} />,
 			<Controls {...{ setAttributes, ...props }} />,
