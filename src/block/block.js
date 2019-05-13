@@ -11,6 +11,7 @@ import './editor.scss';
 
 import Controls from './controls';
 import Inspector from './inspector';
+import attributes from './attributes';
 
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
@@ -39,24 +40,7 @@ registerBlockType('cgb/block-loremtext-block', {
 	/**
 	 * Attribute data for the block. The dummy text will be stored in the loremText attribute
 	 */
-	attributes: {
-		loremText: {
-			type: 'array',
-			source: 'children',
-			selector: '.loremtext-body'
-		},
-		textAlignment: {
-			type: 'string'
-		},
-		highContrast: {
-			type: 'string',
-			default: ''
-		},
-		buttonActive: {
-			type: 'string',
-			default: ''
-		}
-	},
+	attributes,
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
