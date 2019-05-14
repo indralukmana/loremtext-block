@@ -23,7 +23,7 @@ class Inspector extends Component {
 					<RangeControl
 						beforeIcon='arrow-left-alt2'
 						afterIcon='arrow-right-alt2'
-						label={__('Paragraph Count', 'jsforwpblocks')}
+						label={__('Paragraph Count', 'loremtext-block')}
 						value={rangeControl}
 						onChange={rangeControl =>
 							setAttributes({ rangeControl })

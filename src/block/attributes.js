@@ -21,6 +21,10 @@ const attributes = {
 	buttonActive: {
 		type: 'string',
 		default: ''
+	},
+	paragraphRange: {
+		type: 'string',
+		default: '1'
 	}
 };
 
