@@ -17,6 +17,16 @@ const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 const { RichText } = wp.editor;
 
+import { loremIpsum } from 'lorem-ipsum';
+import ReactHtmlParser from 'react-html-parser';
+
+function getLoremIpsumText(texts) {
+	let loremIpsumText = [];
+
+	for (let text in texts) {
+	}
+}
+
 /**
  * Register: aa Gutenberg Block.
  *
@@ -52,12 +62,7 @@ registerBlockType('cgb/block-loremtext-block', {
 	 */
 	edit: props => {
 		const {
-			attributes: {
-				loremText,
-				textAlignment,
-				highContrast,
-				buttonActive
-			},
+			attributes: { loremText, loremIpsumText, textAlignment },
 			className,
 			setAttributes
 		} = props;
@@ -70,17 +75,10 @@ registerBlockType('cgb/block-loremtext-block', {
 			<Inspector {...{ setAttributes, ...props }} />,
 			<Controls {...{ setAttributes, ...props }} />,
 
-			<div className={`${className} ${highContrast}`}>
-				<RichText
-					multiline='p'
-					placeholder={__('Dummy texts here', 'loremtext-block')}
-					onChange={loremText => {
-						props.setAttributes({ loremText });
-					}}
-					style={{ textAlign: textAlignment }}
-					className={`loremtext-body sss ${highContrast}`}
-					value={loremText}
-				/>
+			<div
+				className={`${className}`}
+				style={{ textAlign: textAlignment }}>
+				{ReactHtmlParser(loremIpsumText)}
 			</div>
 		];
 	},
@@ -94,12 +92,12 @@ registerBlockType('cgb/block-loremtext-block', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	save: props => {
-		const { highContrast, textAlignment, loremText } = props.attributes;
+		const { textAlignment, loremIpsumText } = props.attributes;
 		return (
 			<div
-				className={`loremtext-body ${highContrast}`}
+				className={`loremtext-body`}
 				style={{ textAlign: textAlignment }}>
-				{loremText}
+				{ReactHtmlParser(loremIpsumText)}
 			</div>
 		);
 	}

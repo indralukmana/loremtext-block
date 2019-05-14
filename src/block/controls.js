@@ -7,13 +7,14 @@ const { AlignmentToolbar, BlockControls } = wp.editor;
 
 const { Toolbar, Button, Tooltip } = wp.components;
 
+import { loremIpsum } from 'lorem-ipsum';
 /**
  * Create a Block Controls wrapper Component
  */
 class Controls extends Component {
 	render() {
 		const {
-			attributes: { textAlignment, buttonActive, highContrast },
+			attributes: { textAlignment, loremIpsumText },
 			setAttributes
 		} = this.props;
 
@@ -24,10 +25,13 @@ class Controls extends Component {
 			});
 		};
 
-		const toggleHighContrast = () => {
+		const generateLoremIpsumText = () => {
 			setAttributes({
-				highContrast:
-					'high-contrast' === highContrast ? '' : 'high-contrast'
+				loremIpsumText: loremIpsum({
+					count: 4,
+					format: 'html',
+					units: 'paragraphs'
+				})
 			});
 		};
 
@@ -38,10 +42,10 @@ class Controls extends Component {
 					onChange={onChangeTextAlignment}
 				/>
 				<Toolbar>
-					<Tooltip text={__('High Contrast OYE', 'loremtext-block')}>
+					<Tooltip text={__('Generate', 'loremtext-block')}>
 						<Button
-							className={`components-icon-button components-toolbar__control ${buttonActive}`}
-							onClick={toggleHighContrast}>
+							className={`components-icon-button components-toolbar__control`}
+							onClick={generateLoremIpsumText}>
 							{icon}
 						</Button>
 					</Tooltip>

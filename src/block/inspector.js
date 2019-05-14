@@ -31,14 +31,14 @@ class Inspector extends Component {
 						<label htmlFor='high-contrast-form-toggle'>
 							{__('High Contrast', 'loremtext-block')}
 						</label>
-						<FormToggle
+						{/* <FormToggle
 							id='high-contrast-form-toggle'
 							label={__('High Contrast', 'loremtext-block')}
 							checked={
 								highContrast === 'high-contrast' ? true : false
 							}
 							onChange={toggleHighContrast}
-						/>
+						/> */}
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
