@@ -102,9 +102,5 @@ registerBlockType('cgb/block-loremtext-block', {
 				{loremText}
 			</div>
 		);
-	},
-
-	supports: {
-		align: true
 	}
 });
