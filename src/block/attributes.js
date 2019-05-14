@@ -7,6 +7,10 @@ const attributes = {
 		source: 'children',
 		selector: '.loremtext-body'
 	},
+	loremIpsumText: {
+		type: 'string',
+		default: ''
+	},
 	textAlignment: {
 		type: 'string'
 	},
