@@ -13,33 +13,24 @@ const { PanelBody, PanelRow, FormToggle } = wp.components;
 class Inspector extends Component {
 	render() {
 		const {
-			attributes: { highContrast },
+			attributes: {},
 			setAttributes
 		} = this.props;
 
-		const toggleHighContrast = () => {
-			setAttributes({
-				highContrast:
-					'high-contrast' === highContrast ? '' : 'high-contrast'
-			});
-		};
-
 		return (
 			<InspectorControls>
-				<PanelBody title={__('High Contrast', 'loremtext-block')}>
-					<PanelRow>
-						<label htmlFor='high-contrast-form-toggle'>
-							{__('High Contrast', 'loremtext-block')}
-						</label>
-						{/* <FormToggle
-							id='high-contrast-form-toggle'
-							label={__('High Contrast', 'loremtext-block')}
-							checked={
-								highContrast === 'high-contrast' ? true : false
-							}
-							onChange={toggleHighContrast}
-						/> */}
-					</PanelRow>
+				<PanelBody>
+					<RangeControl
+						beforeIcon='arrow-left-alt2'
+						afterIcon='arrow-right-alt2'
+						label={__('Paragraph Count', 'jsforwpblocks')}
+						value={rangeControl}
+						onChange={rangeControl =>
+							setAttributes({ rangeControl })
+						}
+						min={1}
+						max={10}
+					/>
 				</PanelBody>
 			</InspectorControls>
 		);
