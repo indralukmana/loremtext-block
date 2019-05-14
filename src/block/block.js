@@ -62,14 +62,10 @@ registerBlockType('cgb/block-loremtext-block', {
 	 */
 	edit: props => {
 		const {
-			attributes: { loremText, loremIpsumText, textAlignment },
+			attributes: { loremIpsumText, textAlignment },
 			className,
 			setAttributes
 		} = props;
-
-		const onChangeText = loremText => {
-			props.setAttributes({ loremText });
-		};
 
 		return [
 			<Inspector {...{ setAttributes, ...props }} />,
