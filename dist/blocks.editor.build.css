@@ -10,7 +10,3 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
-.wp-block-cgb-block-loremtext-block.high-contrast {
-  background: #000;
-  border-color: #000;
-  color: white; }
