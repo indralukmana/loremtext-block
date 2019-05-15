@@ -26,17 +26,37 @@ class Inspector extends Component {
 			setAttributes
 		} = this.props;
 
-		const generateLoremIpsumText = () =>
-			loremIpsum({
-				count: Number(paragraphRange),
+		const generateLoremIpsumText = (
+			numberParagraph,
+			numberParLow,
+			numberParUpp,
+			numberSenLow,
+			numberSenUpp
+		) => {
+			console.log('paragraphRange' + paragraphRange);
+			console.log('numberParagraph ' + numberParagraph);
+
+			return loremIpsum({
+				count: numberParagraph
+					? numberParagraph
+					: Number(paragraphRange),
 				format: 'html',
 				units: 'paragraphs',
-				paragraphLowerBound: Number(paragraphSentenceLowerBoundRange), // Min. number of sentences per paragraph.
-				paragraphUpperBound: Number(paragraphSentenceUpperBoundRange), // Max. number of sentences per paragarph.
+				paragraphLowerBound: numberParLow
+					? numberParLow
+					: Number(paragraphSentenceLowerBoundRange), // Min. number of sentences per paragraph.
+				paragraphUpperBound: numberParUpp
+					? numberParUpp
+					: Number(paragraphSentenceUpperBoundRange), // Max. number of sentences per paragarph.
 				// random: Math.random, // A PRNG function
-				sentenceLowerBound: Number(sentenceWordLowerBoundRange), // Min. number of words per sentence.
-				sentenceUpperBound: Number(sentenceWordUpperBoundRange) // Max. number of words per sentence.
+				sentenceLowerBound: numberSenLow
+					? numberSenLow
+					: Number(sentenceWordLowerBoundRange), // Min. number of words per sentence.
+				sentenceUpperBound: numberSenUpp
+					? numberSenUpp
+					: Number(sentenceWordUpperBoundRange) // Max. number of words per sentence.
 			});
+		};
 
 		return (
 			<InspectorControls>
@@ -49,7 +69,9 @@ class Inspector extends Component {
 						onChange={paragraphRange => {
 							setAttributes({
 								paragraphRange,
-								loremIpsumText: generateLoremIpsumText()
+								loremIpsumText: generateLoremIpsumText(
+									paragraphRange
+								)
 							});
 						}}
 						min={1}
@@ -70,7 +92,10 @@ class Inspector extends Component {
 						onChange={paragraphSentenceLowerBoundRange => {
 							setAttributes({
 								paragraphSentenceLowerBoundRange,
-								loremIpsumText: generateLoremIpsumText()
+								loremIpsumText: generateLoremIpsumText(
+									undefined,
+									paragraphSentenceLowerBoundRange
+								)
 							});
 						}}
 						min={1}
@@ -87,7 +112,11 @@ class Inspector extends Component {
 						onChange={paragraphSentenceUpperBoundRange => {
 							setAttributes({
 								paragraphSentenceUpperBoundRange,
-								loremIpsumText: generateLoremIpsumText()
+								loremIpsumText: generateLoremIpsumText(
+									undefined,
+									undefined,
+									paragraphSentenceUpperBoundRange
+								)
 							});
 						}}
 						min={paragraphSentenceLowerBoundRange}
@@ -101,7 +130,12 @@ class Inspector extends Component {
 						onChange={sentenceWordLowerBoundRange => {
 							setAttributes({
 								sentenceWordLowerBoundRange,
-								loremIpsumText: generateLoremIpsumText()
+								loremIpsumText: generateLoremIpsumText(
+									undefined,
+									undefined,
+									undefined,
+									sentenceWordLowerBoundRange
+								)
 							});
 						}}
 						min={1}
@@ -115,7 +149,13 @@ class Inspector extends Component {
 						onChange={sentenceWordUpperBoundRange => {
 							setAttributes({
 								sentenceWordUpperBoundRange,
-								loremIpsumText: generateLoremIpsumText()
+								loremIpsumText: generateLoremIpsumText(
+									undefined,
+									undefined,
+									undefined,
+									undefined,
+									sentenceWordUpperBoundRange
+								)
 							});
 						}}
 						min={sentenceWordLowerBoundRange}
