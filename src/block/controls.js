@@ -14,7 +14,7 @@ import { loremIpsum } from 'lorem-ipsum';
 class Controls extends Component {
 	render() {
 		const {
-			attributes: { textAlignment, loremIpsumText },
+			attributes: { textAlignment, loremIpsumText, paragraphRange },
 			setAttributes
 		} = this.props;
 

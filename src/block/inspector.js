@@ -5,7 +5,7 @@ const { __ } = wp.i18n;
 const { Component } = wp.element;
 const { InspectorControls } = wp.editor;
 
-const { PanelBody, PanelRow, FormToggle } = wp.components;
+const { PanelBody, PanelRow, RangeControl, TextControl } = wp.components;
 
 /**
  * Create a Inspector wrapper Component
@@ -13,7 +13,7 @@ const { PanelBody, PanelRow, FormToggle } = wp.components;
 class Inspector extends Component {
 	render() {
 		const {
-			attributes: {},
+			attributes: { paragraphRange },
 			setAttributes
 		} = this.props;
 
@@ -24,9 +24,9 @@ class Inspector extends Component {
 						beforeIcon='arrow-left-alt2'
 						afterIcon='arrow-right-alt2'
 						label={__('Paragraph Count', 'loremtext-block')}
-						value={rangeControl}
-						onChange={rangeControl =>
-							setAttributes({ rangeControl })
+						value={paragraphRange}
+						onChange={paragraphRange =>
+							setAttributes({ paragraphRange })
 						}
 						min={1}
 						max={10}

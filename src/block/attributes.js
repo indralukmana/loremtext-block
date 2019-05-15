@@ -23,7 +23,7 @@ const attributes = {
 		default: ''
 	},
 	paragraphRange: {
-		type: 'string',
+		type: 'number',
 		default: '1'
 	}
 };

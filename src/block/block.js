@@ -88,7 +88,10 @@ registerBlockType('cgb/block-loremtext-block', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	save: props => {
-		const { textAlignment, loremIpsumText } = props.attributes;
+		const {
+			attributes: { textAlignment, loremIpsumText },
+			attributes
+		} = props;
 		return (
 			<div
 				className={`loremtext-body`}
