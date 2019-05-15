@@ -62,7 +62,15 @@ registerBlockType('cgb/block-loremtext-block', {
 	 */
 	edit: props => {
 		const {
-			attributes: { loremIpsumText, textAlignment, paragraphRange },
+			attributes: {
+				loremIpsumText,
+				textAlignment,
+				paragraphRange,
+				paragraphSentenceLowerBoundRange,
+				paragraphSentenceUpperBoundRange,
+				sentenceWordLowerBoundRange,
+				sentenceWordUpperBoundRange
+			},
 			className,
 			setAttributes
 		} = props;

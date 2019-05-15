@@ -9,7 +9,8 @@ const attributes = {
 	},
 	loremIpsumText: {
 		type: 'string',
-		default: ''
+		default:
+			'Click on the gear icon to generate the dummy text. Fine tune the number of paragraphs, sentences, and words on the block settings'
 	},
 	textAlignment: {
 		type: 'string'
@@ -24,7 +25,23 @@ const attributes = {
 	},
 	paragraphRange: {
 		type: 'number',
-		default: '1'
+		default: '3'
+	},
+	paragraphSentenceLowerBoundRange: {
+		type: 'number',
+		default: '3'
+	},
+	paragraphSentenceUpperBoundRange: {
+		type: 'number',
+		default: '5'
+	},
+	sentenceWordLowerBoundRange: {
+		type: 'number',
+		default: '5'
+	},
+	sentenceWordUpperBoundRange: {
+		type: 'number',
+		default: '7'
 	}
 };
 

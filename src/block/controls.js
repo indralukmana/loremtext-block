@@ -14,7 +14,15 @@ import { loremIpsum } from 'lorem-ipsum';
 class Controls extends Component {
 	render() {
 		const {
-			attributes: { textAlignment, loremIpsumText, paragraphRange },
+			attributes: {
+				textAlignment,
+				loremIpsumText,
+				paragraphRange,
+				paragraphSentenceLowerBoundRange,
+				paragraphSentenceUpperBoundRange,
+				sentenceWordLowerBoundRange,
+				sentenceWordUpperBoundRange
+			},
 			setAttributes
 		} = this.props;
 
@@ -28,9 +36,18 @@ class Controls extends Component {
 		const generateLoremIpsumText = () => {
 			setAttributes({
 				loremIpsumText: loremIpsum({
-					count: 4,
+					count: Number(paragraphRange),
 					format: 'html',
-					units: 'paragraphs'
+					units: 'paragraphs',
+					paragraphLowerBound: Number(
+						paragraphSentenceLowerBoundRange
+					), // Min. number of sentences per paragraph.
+					paragraphUpperBound: Number(
+						paragraphSentenceUpperBoundRange
+					), // Max. number of sentences per paragarph.
+					// random: Math.random, // A PRNG function
+					sentenceLowerBound: Number(sentenceWordLowerBoundRange), // Min. number of words per sentence.
+					sentenceUpperBound: Number(sentenceWordUpperBoundRange) // Max. number of words per sentence.
 				})
 			});
 		};
