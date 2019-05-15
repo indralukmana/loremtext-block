@@ -7,15 +7,15 @@ A plugin adding a Gutenberg block generating 'lorem ipsum' texts
 
 ## ⚙ Generate Dummy Texts
 
-![Alt text](screenshots\Generate.gif 'Generate dummy texts')
+![Alt text](https://github.com/indralukmana/loremtext-block/raw/master/screenshots/Generate.gif 'Generate dummy texts')
 
 ## 🔢 Number of Paragraphs
 
-![Alt text](screenshots\ParagraphCount.gif 'Generate dummy texts')
+![Alt text](https://github.com/indralukmana/loremtext-block/raw/master/screenshots/ParagraphCount.gif 'Generate dummy texts')
 
 ## ✨ More Settings
 
-![Alt text](screenshots\DetailedSettings.gif 'Generate dummy texts')
+![Alt text](https://github.com/indralukmana/loremtext-block/raw/master/screenshots/DetailedSettings.gif 'Generate dummy texts')
 
 ## Develop
 
