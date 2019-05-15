@@ -6,8 +6,8 @@
  */
 
 //  Import CSS.
-import './style.scss';
-import './editor.scss';
+// import './style.scss';
+// import './editor.scss';
 
 import Controls from './controls';
 import Inspector from './inspector';
