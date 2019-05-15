@@ -26,6 +26,10 @@ class Inspector extends Component {
 			setAttributes
 		} = this.props;
 
+		// TODO: The function seems ugly. I'm still not sure how to improve this. The setAttributes doesn't
+		// update the attributes for loremIpsum parameter in a timely fashion. I'm not sure if it is how React/Gutenberg
+		// way of doing things. I was thinking it was the consecutive setAttributes, but setTimeout() or setInterval()
+		// doesn't seems to work.
 		const generateLoremIpsumText = (
 			numberParagraph,
 			numberParLow,
@@ -33,9 +37,6 @@ class Inspector extends Component {
 			numberSenLow,
 			numberSenUpp
 		) => {
-			console.log('paragraphRange' + paragraphRange);
-			console.log('numberParagraph ' + numberParagraph);
-
 			return loremIpsum({
 				count: numberParagraph
 					? numberParagraph
