@@ -20,10 +20,10 @@ const { RichText } = wp.editor;
 import { loremIpsum } from 'lorem-ipsum';
 import ReactHtmlParser from 'react-html-parser';
 
-function getLoremIpsumText(texts) {
-	let loremIpsumText = [];
+function getLoremIpsumText( texts ) {
+	const loremIpsumText = [];
 
-	for (let text in texts) {
+	for ( const text in texts ) {
 	}
 }
 
@@ -40,12 +40,12 @@ function getLoremIpsumText(texts) {
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType('loremtext-block/ipsum', {
+registerBlockType( 'loremtext-block/ipsum', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __('Lorem Text'), // Block title.
+	title: __( 'Lorem Text' ), // Block title.
 	icon: 'text', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
-	keywords: [__('Lorem Ipsum Text'), __('Dummy Text'), __('Example')],
+	keywords: [ __( 'Lorem Ipsum Text' ), __( 'Dummy Text' ), __( 'Example' ) ],
 
 	/**
 	 * Attribute data for the block. The dummy text will be stored in the loremText attribute
@@ -69,21 +69,21 @@ registerBlockType('loremtext-block/ipsum', {
 				paragraphSentenceLowerBoundRange,
 				paragraphSentenceUpperBoundRange,
 				sentenceWordLowerBoundRange,
-				sentenceWordUpperBoundRange
+				sentenceWordUpperBoundRange,
 			},
 			className,
-			setAttributes
+			setAttributes,
 		} = props;
 
 		return [
-			<Inspector {...{ setAttributes, ...props }} />,
-			<Controls {...{ setAttributes, ...props }} />,
+			<Inspector { ...{ setAttributes, ...props } } />,
+			<Controls { ...{ setAttributes, ...props } } />,
 
 			<div
-				className={`${className}`}
-				style={{ textAlign: textAlignment }}>
-				{ReactHtmlParser(loremIpsumText)}
-			</div>
+				className={ `${ className }` }
+				style={ { textAlign: textAlignment } }>
+				{ ReactHtmlParser( loremIpsumText ) }
+			</div>,
 		];
 	},
 
@@ -98,14 +98,14 @@ registerBlockType('loremtext-block/ipsum', {
 	save: props => {
 		const {
 			attributes: { textAlignment, loremIpsumText },
-			attributes
+			attributes,
 		} = props;
 		return (
 			<div
-				className={`loremtext-body`}
-				style={{ textAlign: textAlignment }}>
-				{ReactHtmlParser(loremIpsumText)}
+				className={ 'loremtext-body' }
+				style={ { textAlign: textAlignment } }>
+				{ ReactHtmlParser( loremIpsumText ) }
 			</div>
 		);
-	}
-});
+	},
+} );
