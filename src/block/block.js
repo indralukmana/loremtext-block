@@ -40,7 +40,7 @@ function getLoremIpsumText(texts) {
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-registerBlockType('cgb/block-loremtext-block', {
+registerBlockType('loremtext-block/ipsum', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __('Lorem Text'), // Block title.
 	icon: 'text', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.

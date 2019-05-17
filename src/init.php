@@ -64,7 +64,7 @@ function loremtext_block_cgb_block_assets() { // phpcs:ignore
 	 * @since 1.16.0
 	 */
 	register_block_type(
-		'cgb/block-loremtext-block', array(
+		'loremtext-block/ipsum', array(
 			// Enqueue blocks.style.build.css on both frontend & backend.
 			'style'         => 'loremtext_block-cgb-style-css',
 			// Enqueue blocks.build.js in the editor only.
